@@ -36,19 +36,46 @@ input.addEventListener('click', () => {
 // should contain logic and model
 // т.е никакой логики связаной диспатчера из стора не должно быть, как в примере Flux для глупых
 
-// походу стор свой эксендить  от стора там прописывать case
 // а еще это стор должен уметь логировать
 // вопрос логировать он должен от базы уметь или например имлементить интерфейс, как тогда его привязать ко всем чихам
 
-class LoggerStore extends Store {
-    // пока не пойму как тут case то делать
-}
+const store = Store.createStore({
+    dispatcher,
+    callbacks: {
+        [TYPE.CLICK]: (payload) => {
+            console.log(payload);
+        },
+        [TYPE.ANOTHER_CLICK]: (payload) => {
+            console.log('mutation', payload);
+        }
+    }
+});
 
-const store = new LoggerStore(dispatcher);
+// store.$action.subscribe((payload) => {
+//     switch(payload.type){
+//         case TYPE.CLICK:
+//             // store.state.log = 'Вфвуди что-что мне пожалуйста';
+//             log.innerHTML += `\n${payload.type}`;
+//             console.log('Вфвуди что-что мне пожалуйста ');
+//             break;
+//         case TYPE.ANOTHER_CLICK:
+//             log.innerHTML += `\n${payload.type}`;
+//             // store.state.log = 'Another Clck';
+//             console.log('hhhhа ');
+//             break;
+//         default:
+//             console.log('У нас такого совсем нет или инициализация произошла');
+//     }
+// });
 
-console.log(store);
+// ВООБЩЕ КАК БЫ ВЬШКА ДОЛЖНА ПОДПИСАТЬСЯ НА СТОР
+
+const log = document.querySelector('.log');
 
 
+// view (observer) наблюдает за стором (Observable)
+
+// стор (observer) наблюдает за ддиспатчером (Observable)
 
 // VIEW
 // - listen store changes
