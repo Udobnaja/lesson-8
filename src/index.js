@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 exports.__esModule = true;
-require("./styles.scss");
+require('./styles.scss');
 // function sendToServer(data) {
 //     console.log(data);
 //

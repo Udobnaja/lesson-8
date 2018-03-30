@@ -1,12 +1,3 @@
 tsc index ts
 
-
-ЧТО Я ХОЧУ 
-
-INTERFACE ACTION
-interface Action<T>{
-  type: string;
-  payload: T;
-  error?: boolean;
-  meta?: any;
-}
+пока значит precomit lint не работает пото му точ у меня стоит проверка на js

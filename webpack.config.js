@@ -1,7 +1,7 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin"),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    CleanWebpackPlugin = require('clean-webpack-plugin'),
-    autoprefixer = require('autoprefixer');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: './src/index.ts',
@@ -16,16 +16,16 @@ module.exports = {
                 test: /\.html$/,
                 use: [
                     {
-                        loader: "html-loader",
-                        options: { minimize: true }
+                        loader: 'html-loader',
+                        options: {minimize: true}
                     }
                 ]
             },
             {
-                test:/\.(s*)css$/,
+                test: /\.(s*)css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback:'style-loader',
-                    use:[
+                    fallback: 'style-loader',
+                    use: [
                         {
                             loader: 'css-loader',
                             options: {
@@ -38,7 +38,7 @@ module.exports = {
                             options: {
                                 plugins: [
                                     autoprefixer({
-                                        browsers:['ie >= 8', 'last 4 version']
+                                        browsers: ['ie >= 8', 'last 4 version']
                                     })
                                 ],
                                 sourceMap: true
@@ -63,11 +63,11 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebPackPlugin({
-            template: "./src/index.html"
+            template: './src/index.html'
         }),
         new ExtractTextPlugin({
-            filename:'./[name].css'
+            filename: './[name].css'
         })
     ],
-    devtool : "source-map"
+    devtool: 'source-map'
 };
