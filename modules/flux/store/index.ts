@@ -3,34 +3,29 @@ import {IAction} from "../action/index";
 import { Observer } from 'rxjs/Observer';
 import {Observable, BehaviorSubject} from "rxjs";
 
+// @TODO: ПРИВЕДИ К ОДНОМУ СТИЛЮ (так как сейчас уже есть private, не нжуно использовать эти нэйминг нотации с нижним подчеркиванием)
+
 // если не эмиттер на обсервер
 // сделать синглтон
 export class Store {
     protected static _instance:Store = new Store;
-    state$: Observable<any>;
-    private _state;
     protected static dispatcher: Dispatcher;
     /*private */dispatcherToker;
 
+    protected static _state = new BehaviorSubject<any>({});
 
-    private action = new BehaviorSubject<any>('');
-    $action = this.action.asObservable();
-
-    // при конструкторе верно ли делать такое DI, в оригинале какое то create там Store
+    state$: Observable<any>;
 
     private constructor() {
-        this._state = {};
-        // this.dispatcher.register((p) => { // вообще же тут должен регистрироваться колбек
-        //    this.invokeCallback(p);
-        // });
-        // if (Store._instance) {
-        //     throw new Error("Instantiation failed: "+
-        //         "use Singleton.getInstance() instead of new.");
-        // }
+        if (Store._instance) {
+            throw new Error("Instantiation failed: "+
+                "use Singleton.getInstance() instead of new.");
+        }
     }
 
     public static createStore({
         dispatcher,
+        state,
         callbacks
     }){
         Store.dispatcher = dispatcher;
@@ -38,20 +33,19 @@ export class Store {
             Store.dispatcher.register(key, callbacks[key]);
         }
 
+
+        Store._state.next(state);
+
+        return this._instance;
+
+    }
+
+    get state() {
+        return Store._state.getValue();
     }
 
     changeEvent(payload) {
-        this.action.next(payload)
+        Store._state.next(Object.assign(this.state, payload));
     }
-
-    private invokeCallback(payload){
-        this.changeEvent(payload);
-        // console.log(payload);
-        // next(action: Action) {
-        //     this._dispatcher.next(action);
-        // }
-        // здесь в абстракции должна поизойти какая то магия
-    }
-
 }
 

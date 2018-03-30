@@ -20,7 +20,7 @@ import './styles.scss';
 // }
 //
 import {Dispatcher, Store} from '../modules/flux/';
-import {TYPE} from './actions/'
+import {LOG_TYPE} from './actions/'
 //
 const dispatcher = new Dispatcher(); // должен быть один на все приложение - это Singleton  надо написать
 // Store also singleton
@@ -28,10 +28,10 @@ const dispatcher = new Dispatcher(); // должен быть один на вс
 const input = document.querySelector('input');
 
 input.addEventListener('click', () => {
-    dispatcher.dispatch({type: TYPE.CLICK, payload: 'I am Click! from INPUT'});
-
-    dispatcher.dispatch({type: TYPE.ANOTHER_CLICK, payload: 'I am Click! from INPUT - i am the same clone'});
+    dispatcher.dispatch({type: LOG_TYPE.UPDATE, payload: 'Click on Input'});
 });
+
+// У меня есть подозрение, что лог должен быть взаимодествия всего приложения
 
 // should contain logic and model
 // т.е никакой логики связаной диспатчера из стора не должно быть, как в примере Flux для глупых
@@ -39,16 +39,21 @@ input.addEventListener('click', () => {
 // а еще это стор должен уметь логировать
 // вопрос логировать он должен от базы уметь или например имлементить интерфейс, как тогда его привязать ко всем чихам
 
+const state = {
+    log: '',
+    logList: []
+};
+
+// если я захочу выносить стор в дургое место , мне проще будет добавить ему методы через для например общения с колбеками
+
 const store = Store.createStore({
     dispatcher,
-    callbacks: {
-        [TYPE.CLICK]: (payload) => {
-            console.log(payload);
+    state,
+    callbacks: { // mutations
+        [LOG_TYPE.UPDATE]: (payload) => { // update Log
+            store.changeEvent({log: payload});
         },
-        [TYPE.ANOTHER_CLICK]: (payload) => {
-            console.log('mutation', payload);
-        }
-    }
+    },
 });
 
 // store.$action.subscribe((payload) => {
