@@ -1,0 +1,33 @@
+.view-stub{
+  width: 50%;
+
+  &__input {
+    padding: 2px 3px;
+    line-height: 28px;
+    width: 300px;
+
+    &-block {
+      margin-bottom: 10px;
+    }
+
+  }
+
+  &__apply {
+    padding: 3px 15px;
+    background-color: #ffdb4d;
+    line-height: 28px;
+    font-size: 13px;
+    box-shadow: none;
+    border-radius: 3px;
+    border: 1px solid black;
+    margin-left: 10px;
+  }
+
+  &__label {
+    width: 483px;
+    background-color: #ddd;
+    color: black;
+    padding: 10px 5px;
+    line-height: 28px;
+  }
+}
