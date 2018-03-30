@@ -1,19 +1,21 @@
 import {IAction} from "../action/index";
-import {ILog} from "../../log/";
+import {Logger, messageType} from "../../log/";
 
+
+
+const TYPE = 'DISPATCHER';
 // сделать сингл тон
-export class Dispatcher implements ILog{
-    private callbacks;
-    private id;
-
+export class Dispatcher extends Logger {
     constructor() {
-
-        // тут может быть можно плясать от observable
         // можно добавлять id типа что то hash походу
         // this.id = 0;
+        super();
 
         this.callbacks = new Map(); //{}
     }
+
+    private callbacks;
+    private id;
 
     register(type: string, callback:Function) {
 
@@ -23,28 +25,23 @@ export class Dispatcher implements ILog{
 
         this.callbacks.get(type).push(callback);
 
-        this.log(`|ON REGISTER| Register Callback type: ${type}`);
+        this.log(`${TYPE} REGISTER ${type} CALLBACK`, messageType.INFO);
 
         // this.id++;
         /* возвращать id е доплюсованное*/
     }
 
-    dispatch(action: IAction<any>) {  // sorry for any
+    dispatch(action: IAction<any>) {
 
         if (this.callbacks.has(action.type)){
             this.callbacks.get(action.type).forEach((callback) => {
                 callback(action.payload);
-                this.log(`|ON DISPATCH| Callback type: ${action.type} INVOKED`);
+                this.log(`${TYPE} DISPATCH ${action.type} CALLBACK`, messageType.INFO);
             });
         } else {
-            throw new Error('not registered action');
+            this.log(`${TYPE} DISPATCH ERRORS ON TYPE ${action.type} CALLBACK`, messageType.ERROR);
         }
     }
-
-    log(message: string){
-        console.log(`FROM DISPATCHER: ${message}`);
-    }
-
 
     unregister(){
         // удаляшки id

@@ -20,7 +20,9 @@ import './styles.scss';
 // }
 //
 import {Dispatcher, Store} from '../modules/flux/';
-import {LOG_TYPE} from './actions/'
+import {LOG_TYPE} from './actions/';
+
+import {Logger, ILog} from "../modules/log/index";
 //
 const dispatcher = new Dispatcher(); // должен быть один на все приложение - это Singleton  надо написать
 // Store also singleton
@@ -31,52 +33,47 @@ input.addEventListener('click', () => {
     dispatcher.dispatch({type: LOG_TYPE.UPDATE, payload: 'Click on Input'});
 });
 
-// У меня есть подозрение, что лог должен быть взаимодествия всего приложения
 
-// should contain logic and model
-// т.е никакой логики связаной диспатчера из стора не должно быть, как в примере Flux для глупых
+//  Возможно здесь расширитьф ункцию лог до отрисовкив лог
+
+// У меня есть подозрение, что лог должен быть взаимодествия всего приложения
 
 // а еще это стор должен уметь логировать
 // вопрос логировать он должен от базы уметь или например имлементить интерфейс, как тогда его привязать ко всем чихам
+// Ну я же не могу диспатчить
 
 const state = {
     log: '',
     logList: []
 };
 
-// если я захочу выносить стор в дургое место , мне проще будет добавить ему методы через для например общения с колбеками
+// если я захочу выносить стор в дургое место , мне проще будет добавить ему методы через для например общения с колбеками (changeEvent)
 
 const store = Store.createStore({
     dispatcher,
     state,
     callbacks: { // mutations
         [LOG_TYPE.UPDATE]: (payload) => { // update Log
-            store.changeEvent({log: payload});
+            let loglist = store.state.logList;
+            loglist.push(payload);
+            store.changeEvent({log: payload, loglist}); //  мутирем стор только через change Event
         },
     },
 });
 
-// store.$action.subscribe((payload) => {
-//     switch(payload.type){
-//         case TYPE.CLICK:
-//             // store.state.log = 'Вфвуди что-что мне пожалуйста';
-//             log.innerHTML += `\n${payload.type}`;
-//             console.log('Вфвуди что-что мне пожалуйста ');
-//             break;
-//         case TYPE.ANOTHER_CLICK:
-//             log.innerHTML += `\n${payload.type}`;
-//             // store.state.log = 'Another Clck';
-//             console.log('hhhhа ');
-//             break;
-//         default:
-//             console.log('У нас такого совсем нет или инициализация произошла');
-//     }
-// });
 
 // ВООБЩЕ КАК БЫ ВЬШКА ДОЛЖНА ПОДПИСАТЬСЯ НА СТОР
 
 const log = document.querySelector('.log');
 
+store.state$.subscribe((e) => {
+    if (e.logList){ // Please see on best practice article, this is not a good solution
+        log.innerHTML = e.logList;
+    }
+
+}, (e) => {
+    console.log('something GOING WRONG!!!!');
+});
 
 // view (observer) наблюдает за стором (Observable)
 
