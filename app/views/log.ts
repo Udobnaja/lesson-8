@@ -5,3 +5,5 @@ const label = document.querySelector('.view-stub__label');
 const LogNode = new View(label, store.state$);
 
 LogNode.render('data');
+
+export {LogNode};

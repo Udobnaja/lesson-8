@@ -22,7 +22,8 @@ export const store = Store.createStore({
             store.changeEvent({currentData: payload});
         },
         [DATA_TYPE.SEND_DATA]: () => {
-            sendToServer(store.state.currentData).then(() => {
+            sendToServer(store.state.currentData).then((data) => {
+                dispatcher.dispatch({type: DATA_TYPE.SEND_SUCCESS, payload: (data) ? data : 'YOU SEND EMPTY DATA'});
                 store.changeEvent({});
             }).catch((e) => {
                 console.error(e);
