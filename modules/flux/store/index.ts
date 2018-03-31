@@ -1,5 +1,5 @@
 import {Dispatcher} from "../dispatcher/index";
-import {messageType, HTMLLogger} from "../log/index";
+import {messageType, HTMLLogger} from "../../log/index";
 import {Observable} from "../../observer/index";
 
 // ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!

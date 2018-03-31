@@ -1,4 +1,4 @@
-import {HTMLLogger, messageType} from "../log/index";
+import {HTMLLogger, messageType} from "../../log/index";
 import {Observer} from "../../observer/index";
 export class View extends HTMLLogger implements Observer {
 

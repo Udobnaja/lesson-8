@@ -1,5 +1,5 @@
 import {IAction} from "../action/index";
-import {Logger, messageType, HTMLLogger} from "../log/";
+import {Logger, messageType, HTMLLogger} from "../../log/";
 
 const TYPE = 'DISPATCHER';
 
