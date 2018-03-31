@@ -1,5 +1,6 @@
 import {HTMLLogger, messageType} from "../../log/index";
 import {Observer} from "../../observer/index";
+const TYPE = 'VIEW';
 export class View extends HTMLLogger implements Observer {
 
     private template;
@@ -21,7 +22,7 @@ export class View extends HTMLLogger implements Observer {
 
            if (key !== undefined){
                if (this.keys[key] === undefined || state[key] !== this.keys[key]){
-                   this.log('RENDER VIEW', messageType.INFO);
+                   this.log(`${TYPE} RENDER`, messageType.INFO);
                    node.innerText = state[key];
                    this.keys[key] = state[key];
                }

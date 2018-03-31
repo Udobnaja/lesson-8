@@ -1,13 +1,15 @@
 const TIMEOUT = 800;
 
-const sendToServer = async (data) => {
+const sendToServer = (data) => {
     // Выполняется какая то асинхронная операция
 
-    let id = await setTimeout(() => {
-        clearTimeout(id);
-    }, TIMEOUT);
-
-    return data;
+    return new Promise((resolve, reject) => {
+        let id = setTimeout(() => {
+            resolve(data);
+            clearTimeout(id);
+        }, TIMEOUT);
+        // reject() if
+    });
 };
 
 export { sendToServer }

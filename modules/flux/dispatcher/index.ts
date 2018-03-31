@@ -3,8 +3,6 @@ import {Logger, messageType, HTMLLogger} from "../../log/";
 
 const TYPE = 'DISPATCHER';
 
-// ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
-
 export class Dispatcher extends HTMLLogger {
     constructor() {
         // можно добавлять id типа что то hash походу

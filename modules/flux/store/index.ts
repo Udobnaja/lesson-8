@@ -2,7 +2,7 @@ import {Dispatcher} from "../dispatcher/index";
 import {messageType, HTMLLogger} from "../../log/index";
 import {Observable} from "../../observer/index";
 
-// ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
+const TYPE = 'STORE';
 
 export class Store extends HTMLLogger {
 
@@ -29,7 +29,7 @@ export class Store extends HTMLLogger {
         callbacks
     }){
 
-        Store.prototype.log('STORE WAS CREATED', messageType.INFO); // это не выводит в HTML
+        Store.prototype.log(`${TYPE} WAS CREATED`, messageType.INFO); // это не выводит в HTML
         Store.dispatcher = dispatcher;
 
         for (let key in callbacks){
@@ -47,7 +47,7 @@ export class Store extends HTMLLogger {
 
     changeEvent(payload) {
         const keys = Object.keys(payload);
-        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED WITH EMPTY PAYLOAD';
+        const log = (keys.length) ? `${TYPE} CHANGE ${keys} KEYS` : '${TYPE} CHANGE EVENT FIRED WITH EMPTY PAYLOAD';
         this.log(log, messageType.INFO);
         if (keys.length){ // для того чтобы рендер выполнялся только при наличии payload
             Store._state.next(Object.assign(this.state, payload));
