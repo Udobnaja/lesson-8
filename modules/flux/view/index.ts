@@ -3,6 +3,7 @@ import {Observer} from "../../observer/index";
 export class View extends HTMLLogger implements Observer {
 
     private template;
+    private keys = {};
 
     constructor(private node, private _observable){
         super();
@@ -13,24 +14,25 @@ export class View extends HTMLLogger implements Observer {
     }
 
     private _render(state){
-        this.node.innerHTML = this.template;
         // Не живой пример - проходимся только по узлам первой вложенности
         for (let node of this.node.childNodes){
-           // можно потом сохранять ключи и сравнивать изменились они или нет и если изменились делать рендер
+           // сохраняем ключи и сравниваем изменились они или нет и если изменились делать рендер
            const key = node.dataset.bind;
 
            if (key !== undefined){
-               this.log('RENDER VIEW', messageType.INFO);
-               node.innerText = state[key];
+               if (this.keys[key] === undefined || state[key] !== this.keys[key]){
+                   this.log('RENDER VIEW', messageType.INFO);
+                   node.innerText = state[key];
+                   this.keys[key] = state[key];
+               }
            }
         }
     }
 
     public render(callback){
         this.template = callback();
+        this.node.innerHTML = this.template;
         this._render(this._observable.getValue());
-
-
     }
 
     update(state){
