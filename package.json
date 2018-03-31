@@ -51,8 +51,5 @@
     "webpack-dev-server": "^3.1.0"
   },
   "author": "Udobnaja",
-  "license": "ISC",
-  "dependencies": {
-    "rxjs": "^5.5.8"
-  }
+  "license": "ISC"
 }

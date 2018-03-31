@@ -7,7 +7,8 @@ const dispatcher = new Dispatcher();
 const state = {
     log: '',
     logList: [],
-    currentData: ''
+    currentData: '',
+    data: 'Здесь появится ответ сервера'
 };
 
 export const store = Store.createStore({

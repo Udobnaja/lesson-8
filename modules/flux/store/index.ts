@@ -1,6 +1,6 @@
 import {Dispatcher} from "../dispatcher/index";
-import {BehaviorSubject, Subject, Observable} from "rxjs";
 import {messageType, HTMLLogger} from "../log/index";
+import {MyObservable} from "../../observer/index";
 
 // ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
 
@@ -8,10 +8,12 @@ export class Store extends HTMLLogger {
 
     private constructor() {
         super();
-        Store._state = new BehaviorSubject<any>({});
-        this.state$ = Store._state.asObservable();
+
+        Store._state = new MyObservable({});
+        this.state$ = Store._state;
+
         if (Store._instance) {
-            throw new Error("only one Store Prohibited");
+            throw new Error("only one Store is Allowed");
         }
     }
 
@@ -45,7 +47,7 @@ export class Store extends HTMLLogger {
 
     changeEvent(payload) {
         const keys = Object.keys(payload);
-        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED';
+        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED WITH EMPTY PAYLOAD';
         this.log(log, messageType.INFO);
         if (keys.length){ // для того чтобы рендер выполнялся только при наличии payload
             Store._state.next(Object.assign(this.state, payload));
