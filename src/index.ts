@@ -1,46 +1,31 @@
 import './styles.scss';
 
-// function sendToServer(data) {
-//     console.log(data);
-//
-//     const event = new CustomEvent('dataIsSent', { detail: data });
-//
-//     document.dispatchEvent(event);
-// }
+function sendToServer(data) {
 
+    const event = new CustomEvent('dataIsSent', { detail: data });
 
-// Пример обработки события dataIsSent. Рекомендуется изменить API модуля так,
-// чтобы вызова события через document не было
+    document.dispatchEvent(event);
+}
 
-// function test() {
-//     document.addEventListener('dataIsSent', function(event) {
-//         console.log('event got ' + event.detail);
-//     });
-//     sendToServer('mydata');
-// }
-//
 import {Dispatcher, Store} from '../modules/flux/';
-import {LOG_TYPE} from './actions/';
+import {DATA_TYPE, INPUT_TYPE} from './actions/';
 
 import {Logger, ILog} from "../modules/log/index";
+import {View} from "../modules/flux/view/index";
 //
-const dispatcher = new Dispatcher(); // должен быть один на все приложение - это Singleton  надо написать
-// Store also singleton
+const dispatcher = new Dispatcher(); //  можно создать через new, но он все равно SingleTon
 
 const input = document.querySelector('input');
+const button = document.querySelector('.view-stub__apply');
+const label = document.querySelector('.view-stub__label');
 
-input.addEventListener('click', () => {
-    dispatcher.dispatch({type: LOG_TYPE.UPDATE, payload: 'Click on Input'});
+button.addEventListener('click', () => {
+    dispatcher.dispatch({type: DATA_TYPE.SEND}); // payload необязательный
 });
 
-
-//  Возможно здесь расширитьф ункцию лог до отрисовкив лог
-
-// У меня есть подозрение, что лог должен быть взаимодествия всего приложения
-
-// а еще это стор должен уметь логировать
-// вопрос логировать он должен от базы уметь или например имлементить интерфейс, как тогда его привязать ко всем чихам
-// Ну я же не могу диспатчить
+input.addEventListener('keyup', function(){
+    dispatcher.dispatch({type: INPUT_TYPE.KEYUP, payload: this.value});
+});
 
 const state = {
     log: '',
@@ -53,35 +38,19 @@ const store = Store.createStore({
     dispatcher,
     state,
     callbacks: { // mutations
-        [LOG_TYPE.UPDATE]: (payload) => { // update Log
-            let loglist = store.state.logList;
-            loglist.push(payload);
-            store.changeEvent({log: payload, loglist}); //  мутирем стор только через change Event
+        [DATA_TYPE.SEND]: () => {
+            store.changeEvent({data: store.state.currentData}); //  мутирем стор только через change Event
         },
+        [INPUT_TYPE.KEYUP]: (payload) => {
+            store.changeEvent({currentData: payload});
+        }
     },
 });
 
+const LogNode = new View(label, store.state$);
 
-// ВООБЩЕ КАК БЫ ВЬШКА ДОЛЖНА ПОДПИСАТЬСЯ НА СТОР
+LogNode.render('data');
 
-const log = document.querySelector('.log');
-
-store.state$.subscribe((e) => {
-    if (e.logList){ // Please see on best practice article, this is not a good solution
-        log.innerHTML = e.logList;
-    }
-
-}, (e) => {
-    console.log('something GOING WRONG!!!!');
-});
-
-// view (observer) наблюдает за стором (Observable)
-
-// стор (observer) наблюдает за ддиспатчером (Observable)
-
-// VIEW
-// - listen store changes
-// - emit actions to dispatcher
 
 // ----------------------------- WHAT I WANT LOG --------------------------------// это не нужно логиоовать
 // DOCUMENT READY

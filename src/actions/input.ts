@@ -1,6 +1,6 @@
-export const TYPE = {
+export const INPUT_TYPE = {
    'CLICK': 'INPUT_CLICK',
-   'ANOTHER_CLICK': 'INPUT_CLICK_ANOTHER'
+   'KEYUP': 'INPUT_ON_KEY_UP'
 };
 
 

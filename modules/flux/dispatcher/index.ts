@@ -9,6 +9,10 @@ export class Dispatcher extends Logger {
     constructor() {
         // можно добавлять id типа что то hash походу
         // this.id = 0;
+
+        if (Dispatcher._instance){
+            return Dispatcher._instance;
+        }
         super();
 
         this.callbacks = new Map(); //{}
@@ -16,6 +20,8 @@ export class Dispatcher extends Logger {
 
     private callbacks;
     private id;
+    public isDispatching: boolean;
+    protected static _instance: Dispatcher = new Dispatcher;
 
     register(type: string, callback:Function) {
 
@@ -32,13 +38,16 @@ export class Dispatcher extends Logger {
     }
 
     dispatch(action: IAction<any>) {
+        this.isDispatching = true;
 
         if (this.callbacks.has(action.type)){
-            this.callbacks.get(action.type).forEach((callback) => {
-                callback(action.payload);
+            this.callbacks.get(action.type).forEach(async (callback) =>  {
                 this.log(`${TYPE} DISPATCH ${action.type} CALLBACK`, messageType.INFO);
+                await callback(action.payload);
+                this.isDispatching = false;
             });
         } else {
+            this.isDispatching = false;
             this.log(`${TYPE} DISPATCH ERRORS ON TYPE ${action.type} CALLBACK`, messageType.ERROR);
         }
     }

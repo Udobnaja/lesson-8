@@ -1,12 +1,6 @@
 import {Dispatcher} from "../dispatcher/index";
-import {IAction} from "../action/index";
-import { Observer } from 'rxjs/Observer';
-import {Observable, BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subject, Observable} from "rxjs";
 import {Logger, messageType} from "../../log/index";
-
-// @TODO: ПРИВЕДИ К ОДНОМУ СТИЛЮ (так как сейчас уже есть private, не нжуно использовать эти нэйминг нотации с нижним подчеркиванием)
-
-
 
 export class Store extends Logger{
 
@@ -15,14 +9,12 @@ export class Store extends Logger{
         Store._state = new BehaviorSubject<any>({});
         this.state$ = Store._state.asObservable();
         if (Store._instance) {
-            throw new Error("Instantiation failed: "+
-                "use Singleton.getInstance() instead of new.");
+            throw new Error("only one Store Prohibited");
         }
     }
 
     protected static _instance: Store = new Store;
     protected static dispatcher: Dispatcher;
-    /*private */dispatcherToker;
 
     protected static _state;
     public state$;
@@ -35,12 +27,10 @@ export class Store extends Logger{
         Store.dispatcher = dispatcher;
 
         for (let key in callbacks){
-            Store.dispatcher.register(key, callbacks[key]);
+            this.dispatcher.register(key, callbacks[key]);
         }
 
-        console.log('CREATE STORE');
-
-        Store._state.next(state);
+        this._state.next(state);
 
         return this._instance;
     }
@@ -54,7 +44,7 @@ export class Store extends Logger{
     }
 
     changeEvent(payload) {
-        this.log(`STORE CHANGE EVENT ${payload}`, messageType.INFO);
+        this.log(`STORE CHANGE ${Object.keys(payload)} KEYS`, messageType.INFO);
         Store._state.next(Object.assign(this.state, payload));
     }
 }
