@@ -20,8 +20,8 @@ export class Store extends HTMLLogger {
     protected static _instance: Store = new Store;
     protected static dispatcher: Dispatcher;
 
-    protected static _state;
-    public state$;
+    protected static _state:Observable;
+    public state$:Observable;
 
     public static createStore({
         dispatcher,

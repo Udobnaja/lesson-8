@@ -1,12 +1,12 @@
 import {HTMLLogger, messageType} from "../../log/index";
-import {Observer} from "../../observer/index";
+import {Observer, Observable} from "../../observer/index";
 const TYPE = 'VIEW';
 export class View extends HTMLLogger implements Observer {
 
     private template;
     private keys = {};
 
-    constructor(private node, private _observable){
+    constructor(private node, private _observable: Observable){
         super();
         this.node = node;
         this._observable = _observable;
