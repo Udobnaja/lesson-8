@@ -2,7 +2,7 @@ export interface Observer {
     update (arg:any);
 }
 
-export class MyObservable {
+export class Observable {
     private observers : Observer [];
     private _value;
 

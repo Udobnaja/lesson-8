@@ -1,6 +1,6 @@
 import {Dispatcher} from "../dispatcher/index";
 import {messageType, HTMLLogger} from "../log/index";
-import {MyObservable} from "../../observer/index";
+import {Observable} from "../../observer/index";
 
 // ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
 
@@ -9,7 +9,7 @@ export class Store extends HTMLLogger {
     private constructor() {
         super();
 
-        Store._state = new MyObservable({});
+        Store._state = new Observable({});
         this.state$ = Store._state;
 
         if (Store._instance) {
