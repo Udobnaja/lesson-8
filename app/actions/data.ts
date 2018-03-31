@@ -1,5 +1,5 @@
 export const DATA_TYPE = {
     'SEND_DATA': 'DATA_IN_SEND_PROCESS',
     'SEND_SUCCESS': 'DATA_WAS_SENT',
-    'ERROR': 'ERROR_DATA',
+    'SEND_ERROR': 'ERROR_DATA',
 };

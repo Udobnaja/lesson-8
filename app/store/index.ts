@@ -26,7 +26,8 @@ export const store = Store.createStore({
                 dispatcher.dispatch({type: DATA_TYPE.SEND_SUCCESS, payload: (data) ? data : 'YOU SEND EMPTY DATA'});
                 store.changeEvent({});
             }).catch((e) => {
-                console.error(e);
+                dispatcher.dispatch({type: DATA_TYPE.SEND_ERROR});
+                store.changeEvent({});
             })
 
         },
