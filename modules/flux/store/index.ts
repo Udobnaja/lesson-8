@@ -28,8 +28,7 @@ export class Store extends HTMLLogger {
         state,
         callbacks
     }){
-
-        Store.prototype.log(`${TYPE} WAS CREATED`, messageType.INFO); // это не выводит в HTML
+        Store._instance.log(`${TYPE} WAS CREATED`, messageType.INFO);
         Store.dispatcher = dispatcher;
 
         for (let key in callbacks){
