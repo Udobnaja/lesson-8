@@ -1,7 +1,6 @@
 import './styles.scss';
-import './store/';
-
 import './views/log';
+import './store/';
 
 import {Dispatcher} from '../modules/flux/';
 import {INPUT_TYPE} from './actions/';

@@ -2,7 +2,7 @@ import {HTMLLogger, messageType} from "../log/index";
 import {Observer} from "../../observer/index";
 export class View extends HTMLLogger implements Observer {
 
-    private key;
+    private template;
 
     constructor(private node, private _observable){
         super();
@@ -12,15 +12,28 @@ export class View extends HTMLLogger implements Observer {
 
     }
 
-    public render(key){
-        this.key = key;
+    private _render(state){
+        this.node.innerHTML = this.template;
+        // Не живой пример - проходимся только по узлам первой вложенности
+        for (let node of this.node.childNodes){
+           // можно потом сохранять ключи и сравнивать изменились они или нет и если изменились делать рендер
+           const key = node.dataset.bind;
+
+           if (key !== undefined){
+               this.log('RENDER VIEW', messageType.INFO);
+               node.innerText = state[key];
+           }
+        }
+    }
+
+    public render(callback){
+        this.template = callback();
+        this._render(this._observable.getValue());
+
+
     }
 
     update(state){
-        if (state[this.key] !== undefined){
-            this.node.innerHTML = state[this.key];
-            this.log('RENDER VIEW', messageType.INFO);
-        }
-
+        this._render(state);
     }
 }

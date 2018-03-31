@@ -36,7 +36,7 @@ export class Store extends HTMLLogger {
             this.dispatcher.register(key, callbacks[key]);
         }
 
-        this._state.next(state);
+        Store._state.next(state);
 
         return this._instance;
     }
