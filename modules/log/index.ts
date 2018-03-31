@@ -16,3 +16,24 @@ export class Logger implements ILog {
         }
     }
 }
+
+export class HTMLLogger extends Logger {
+    private _node;
+
+    constructor(){
+        super();
+    }
+
+    set node(value) {
+        this._node = value;
+    }
+
+    log(message, type){
+        super.log(message, type);
+        if (this._node){
+            this._node.innerHTML += message;
+        } else {
+            throw Error('HTML container for log should be specified');
+        }
+    }
+}

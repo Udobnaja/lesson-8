@@ -42,7 +42,7 @@ export class Store extends Logger{
     changeEvent(payload) {
         const keys = Object.keys(payload);
         const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED, BUT PAYLOAD WAS EMPTY';
-        this.log(log , messageType.INFO);
+        this.log(log, messageType.INFO);
         Store._state.next(Object.assign(this.state, payload));
     }
 }
