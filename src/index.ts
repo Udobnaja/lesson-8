@@ -2,8 +2,9 @@ import './styles.scss';
 
 const sendToServer = async (data) => {
     // Выполняется какая то асинхронная операция
+
     let id = await setTimeout(() => {
-        dispatcher.dispatch({type: DATA_TYPE.SEND_SUCCESS, payload: data});
+        dispatcher.dispatch({type: DATA_TYPE.SEND_SUCCESS, payload: (data) ? data : 'YOU SEND EMPTY DATA'});
         clearTimeout(id);
     }, 800);
 };
@@ -30,7 +31,8 @@ input.addEventListener('keyup', function(){
 
 const state = {
     log: '',
-    logList: []
+    logList: [],
+    currentData: ''
 };
 
 // если я захочу выносить стор в дургое место , мне проще будет добавить ему методы через для например общения с колбеками (changeEvent)

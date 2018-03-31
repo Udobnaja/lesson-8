@@ -6,7 +6,7 @@ export class View{
 
     public render(key){
         this.observable.subscribe((e) => {
-            if (e[key]){
+            if (e[key] !== undefined){
                 this.node.innerHTML = e[key];
             }
         })
