@@ -4,7 +4,7 @@ export enum messageType {
 }
 
 export interface ILog {
-    log(message: string, type: messageType): void;
+     log(message: string, type: messageType): void;
 }
 
 export class Logger implements ILog {
@@ -21,22 +21,22 @@ export class Logger implements ILog {
 // но можно переопределить
 
 export class HTMLLogger extends Logger {
-    private _node;
+    private _HTMLNode;
 
     constructor(){
         super();
-        this._node = document.querySelector('.log');
+        this._HTMLNode = document.querySelector('.log');
     }
 
-    set node(value) {
+    set HTMLNode(value) {
         //check value  not empty
-        this._node = value;
+        this._HTMLNode = value;
     }
 
-    log(message, type){
+   log(message, type){
         super.log(message, type);
-        if (this._node){
-            this._node.innerHTML += `${message} <br>`;
+        if (this._HTMLNode){
+            this._HTMLNode.innerHTML += `${message} <br>`;
         }
     }
 }
