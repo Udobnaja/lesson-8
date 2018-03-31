@@ -1,56 +1,51 @@
 import {IAction} from "../action/index";
-import {Logger, messageType, HTMLLogger} from "../../log/";
+import {messageType, HTMLLogger} from "../../log/";
 
 const TYPE = 'DISPATCHER';
 
 export class Dispatcher extends HTMLLogger {
     constructor() {
-        // можно добавлять id типа что то hash походу
-        // this.id = 0;
 
         if (Dispatcher._instance){
             return Dispatcher._instance;
         }
         super();
-
-        this.callbacks = new Map(); //{}
+        this._callbacks = new Map();
     }
 
-    private callbacks;
-    private id;
-    public isDispatching: boolean;
+    private _callbacks;
     protected static _instance: Dispatcher = new Dispatcher;
 
-    register(type: string, callback:Function) {
+    register(type: string, callback:Function){
 
-        if (!this.callbacks.has(type)){
-            this.callbacks.set(type, []);
+        if (!this._callbacks.has(type)){
+            this._callbacks.set(type, []);
         }
 
-        this.callbacks.get(type).push(callback);
+        this._callbacks.get(type).push(callback);
 
         this.log(`${TYPE} REGISTER ${type} CALLBACK`, messageType.INFO);
-
-        // this.id++;
-        /* возвращать id е доплюсованное*/
     }
 
     dispatch(action: IAction<any>) {
-        this.isDispatching = true;
-
-        if (this.callbacks.has(action.type)){
-            this.callbacks.get(action.type).forEach(async (callback) =>  {
+        
+        if (this._callbacks.has(action.type)){
+            this._callbacks.get(action.type).forEach((callback) =>  {
                 this.log(`${TYPE} DISPATCH ${action.type} CALLBACK`, messageType.INFO);
-                await callback(action.payload);
-                this.isDispatching = false;
+                callback(action.payload);
             });
         } else {
-            this.isDispatching = false;
             this.log(`${TYPE} DISPATCH ERRORS ON TYPE ${action.type} CALLBACK`, messageType.ERROR);
         }
     }
 
-    unregister(){
-        // удаляшки id
+    unregister(type, index:number){
+        if (this._callbacks.has(type)){
+            const callbacks = this._callbacks.get(type);
+            if (index < callbacks.length && index >= 0){
+                this._callbacks.get(type).splice(index, 1);
+                this.log(`${TYPE} UNREGISTER ${type} CALLBACK with index ${index}`, messageType.INFO);
+            }
+        }
     }
 }
