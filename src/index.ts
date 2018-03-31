@@ -11,15 +11,13 @@ const sendToServer = async (data) => {
 
 import {Dispatcher, Store} from '../modules/flux/';
 import {DATA_TYPE, INPUT_TYPE} from './actions/';
-
-import {Logger, ILog} from "../modules/log/index";
 import {View} from "../modules/flux/view/index";
-//
-const dispatcher = new Dispatcher(); //  можно создать через new, но он все равно SingleTon
 
 const input = document.querySelector('input');
 const button = document.querySelector('.view-stub__apply');
 const label = document.querySelector('.view-stub__label');
+
+const dispatcher = new Dispatcher(); //  можно создать через new, но он все равно SingleTon
 
 button.addEventListener('click', () => {
     dispatcher.dispatch({type: INPUT_TYPE.CLICK}); // payload необязательный
@@ -57,7 +55,6 @@ const store = Store.createStore({
         }
     },
 });
-
 
 const LogNode = new View(label, store.state$);
 

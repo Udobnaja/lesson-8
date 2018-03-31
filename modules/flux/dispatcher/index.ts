@@ -1,11 +1,11 @@
 import {IAction} from "../action/index";
-import {Logger, messageType} from "../../log/";
-
-
+import {Logger, messageType, HTMLLogger} from "../log/";
 
 const TYPE = 'DISPATCHER';
-// сделать сингл тон
-export class Dispatcher extends Logger {
+
+// ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
+
+export class Dispatcher extends HTMLLogger {
     constructor() {
         // можно добавлять id типа что то hash походу
         // this.id = 0;

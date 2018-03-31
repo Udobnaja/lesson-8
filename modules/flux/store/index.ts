@@ -1,8 +1,10 @@
 import {Dispatcher} from "../dispatcher/index";
 import {BehaviorSubject, Subject, Observable} from "rxjs";
-import {Logger, messageType} from "../../log/index";
+import {messageType, HTMLLogger} from "../log/index";
 
-export class Store extends Logger{
+// ПС ХОЧУ БЛИН ЭКСТЕНДИТЬ ДВА КЛАССА!!!
+
+export class Store extends HTMLLogger {
 
     private constructor() {
         super();
@@ -41,7 +43,7 @@ export class Store extends Logger{
 
     changeEvent(payload) {
         const keys = Object.keys(payload);
-        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED, BUT PAYLOAD WAS EMPTY';
+        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED';
         this.log(log, messageType.INFO);
         Store._state.next(Object.assign(this.state, payload));
     }
