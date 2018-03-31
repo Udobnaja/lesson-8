@@ -47,7 +47,10 @@ export class Store extends HTMLLogger {
         const keys = Object.keys(payload);
         const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED';
         this.log(log, messageType.INFO);
-        Store._state.next(Object.assign(this.state, payload));
+        if (keys.length){ // для того чтобы рендер выполнялся только при наличии payload
+            Store._state.next(Object.assign(this.state, payload));
+        }
+
     }
 }
 
