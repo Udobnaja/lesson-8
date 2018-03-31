@@ -3,8 +3,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
+const SRC = './app';
+const DIST = 'dist';
+
 module.exports = {
-    entry: './src/index.ts',
+    entry: `${SRC}/index.ts`,
     module: {
         rules: [
             {
@@ -61,9 +64,9 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin([DIST]),
         new HtmlWebPackPlugin({
-            template: './src/index.html'
+            template: `${SRC}/index.html`
         }),
         new ExtractTextPlugin({
             filename: './[name].css'

@@ -50,7 +50,6 @@ export class Store extends HTMLLogger {
         if (keys.length){ // для того чтобы рендер выполнялся только при наличии payload
             Store._state.next(Object.assign(this.state, payload));
         }
-
     }
 }
 
