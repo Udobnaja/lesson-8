@@ -1,11 +1,12 @@
 import './styles.scss';
 
-function sendToServer(data) {
-
-    const event = new CustomEvent('dataIsSent', { detail: data });
-
-    document.dispatchEvent(event);
-}
+const sendToServer = async (data) => {
+    // Выполняется какая то асинхронная операция
+    let id = await setTimeout(() => {
+        dispatcher.dispatch({type: DATA_TYPE.SEND_SUCCESS, payload: data});
+        clearTimeout(id);
+    }, 800);
+};
 
 import {Dispatcher, Store} from '../modules/flux/';
 import {DATA_TYPE, INPUT_TYPE} from './actions/';
@@ -20,7 +21,7 @@ const button = document.querySelector('.view-stub__apply');
 const label = document.querySelector('.view-stub__label');
 
 button.addEventListener('click', () => {
-    dispatcher.dispatch({type: DATA_TYPE.SEND}); // payload необязательный
+    dispatcher.dispatch({type: INPUT_TYPE.CLICK}); // payload необязательный
 });
 
 input.addEventListener('keyup', function(){
@@ -38,14 +39,23 @@ const store = Store.createStore({
     dispatcher,
     state,
     callbacks: { // mutations
-        [DATA_TYPE.SEND]: () => {
-            store.changeEvent({data: store.state.currentData}); //  мутирем стор только через change Event
+        [INPUT_TYPE.CLICK]: () => {
+            dispatcher.dispatch({type: DATA_TYPE.SEND_DATA});
+            store.changeEvent({}); //  мутирем стор только через change Event
         },
         [INPUT_TYPE.KEYUP]: (payload) => {
             store.changeEvent({currentData: payload});
+        },
+        [DATA_TYPE.SEND_DATA]: () => {
+            sendToServer(store.state.currentData);
+            store.changeEvent({});
+        },
+        [DATA_TYPE.SEND_SUCCESS]: (payload) => {
+            store.changeEvent({data: payload});
         }
     },
 });
+
 
 const LogNode = new View(label, store.state$);
 

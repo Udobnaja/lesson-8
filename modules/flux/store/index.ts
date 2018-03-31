@@ -35,16 +35,14 @@ export class Store extends Logger{
         return this._instance;
     }
 
-    get subject(){
-        return Store._state
-    }
-
     get state() {
         return Store._state.getValue();
     }
 
     changeEvent(payload) {
-        this.log(`STORE CHANGE ${Object.keys(payload)} KEYS`, messageType.INFO);
+        const keys = Object.keys(payload);
+        const log = (keys.length) ? `STORE CHANGE ${keys} KEYS` : 'STORE CHANGE EVENT FIRED, BUT PAYLOAD WAS EMPTY';
+        this.log(log , messageType.INFO);
         Store._state.next(Object.assign(this.state, payload));
     }
 }
