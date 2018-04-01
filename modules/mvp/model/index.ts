@@ -10,6 +10,10 @@ export class Model extends HTMLLogger{
     set state(data){
         this._state = Object.assign(this._state, data);
     }
+
+    get state(){
+        return this._state;
+    }
 }
 
 

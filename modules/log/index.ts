@@ -33,6 +33,10 @@ export class HTMLLogger extends Logger {
         this._HTMLNode = value;
     }
 
+    get HTMLNode(){
+        return this._HTMLNode;
+    }
+
    log(message, type) {
         super.log(message, type);
         if (this._HTMLNode) {

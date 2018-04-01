@@ -1,6 +1,7 @@
 import { Presenter } from '../../../../modules/mvp/presenter/index';
 import { messageType } from '../../../../modules/log/index';
 export class MVPPresenter extends Presenter{
+    // мне не нравится каждый раз вызвать супер
     constructor(view, ModelClass){
         super(view);
         this._model = new ModelClass();
@@ -9,9 +10,8 @@ export class MVPPresenter extends Presenter{
     // Вообще не хорошо что я тут имею доступ к приватным и протектед пропертям
 
     init(){
-        const data = { data: 'Здесь появится ответ сервера', currentData: '' };
-        this._update(data);
-        this.renderLabel(data);
+        this.state = { data: 'Здесь появится ответ сервера', currentData: '' };
+        this.renderLabel(this.state);
     }
 
     click(){
