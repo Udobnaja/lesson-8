@@ -1,8 +1,8 @@
 .view-stub{
   &__input {
-    padding: 12px 20px;
+    @extend %small-padding;
     width: 300px;
-    border-radius: 3px;
+    border-radius: $border-radius;
     border: 2px solid #E8E8E8;
 
     &-block {
@@ -12,11 +12,11 @@
   }
 
   &__apply {
-    padding: 12px 20px;
+    @extend %small-padding;
     background-color: #ffdb4d;
     font-size: 13px;
     box-shadow: none;
-    border-radius: 3px;
+    border-radius: $border-radius;
     margin-left: 10px;
     border: 0;
   }
@@ -25,7 +25,7 @@
     width: 483px;
     background-color: #ddd;
     color: black;
-    padding: 16px 20px;
-    border-radius: 3px;
+    @extend %big-padding;
+    border-radius: $border-radius;
   }
 }
