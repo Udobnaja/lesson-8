@@ -1,6 +1,6 @@
 import { Model } from '../model/index';
 import { IView } from '../view/index';
-import {HTMLLogger, messageType} from '../../log/index';
+import { HTMLLogger, messageType } from '../../log/index';
 
 export class Presenter extends HTMLLogger{
     private _view: IView;

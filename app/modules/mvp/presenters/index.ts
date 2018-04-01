@@ -9,16 +9,16 @@ export class MVPPresenter extends Presenter{
 
     click(){
         this.log('PRESENTER CLICK INVOKE', messageType.INFO);
-        this.changeDisableState({isDisabled: true});
+        this.changeDisableState({ isDisabled: true });
 
         this.model['sendToServer'](this.view.node.querySelector('input').value)
             .then((resp) => {
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
-                this.state = {data: (resp) ? resp : 'YOU SEND EMPTY DATA'};
-                this.changeDisableState({isDisabled: false});
+                this.state = { data: (resp) ? resp : 'YOU SEND EMPTY DATA' };
+                this.changeDisableState({ isDisabled: false });
                 this.renderLabel(this.state);
             }).catch((e) => {
-                this.changeDisableState({isDisabled: false});
+                this.changeDisableState({ isDisabled: false });
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH ERROR', messageType.ERROR);
             });
     }
@@ -37,7 +37,7 @@ export class MVPPresenter extends Presenter{
         }
     }
 
-    changeDisableState({isDisabled}){
+    changeDisableState({ isDisabled }){
         // повторяюсь =(
         this.view.node
             .querySelector('.view-stub__input').disabled = isDisabled;

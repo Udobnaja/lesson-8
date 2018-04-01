@@ -10,7 +10,7 @@ const state = {
     logList: [],
     currentData: '',
     data: 'Здесь появится ответ сервера',
-    isSending: false
+    isSending: false,
 };
 
 export const store = Store.createStore({
@@ -25,16 +25,16 @@ export const store = Store.createStore({
             store.changeEvent({ currentData: payload }); //  мутирем стор только через change Event
         },
         [DATA_TYPE.SEND_DATA]: () => {
-            store.changeEvent({isSending: true});
+            store.changeEvent({ isSending: true });
             sendToServer(store.state.currentData).then((data) => {
                 dispatcher.dispatch({
                     type: DATA_TYPE.SEND_SUCCESS,
                     payload: (data) ? data : 'YOU SEND EMPTY DATA',
                 });
-                store.changeEvent({isSending: false});
+                store.changeEvent({ isSending: false });
             }).catch((e) => {
                 dispatcher.dispatch({ type: DATA_TYPE.SEND_ERROR });
-                store.changeEvent({isSending: false});
+                store.changeEvent({ isSending: false });
             });
 
         },

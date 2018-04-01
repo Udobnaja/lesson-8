@@ -30,8 +30,8 @@ export class View extends HTMLLogger implements IObserver {
 
            const disabledKey = node.dataset.disabled;
            const tag = node.tagName;
-
-            if (disabledKey !== undefined) { // node tag name тестовое решение проблемы двух нод с одинковым проперти
+            // node tag name тестовое решение проблемы двух нод с одинковым проперти
+            if (disabledKey !== undefined) {
                 if (this._keys[`${tag}_${disabledKey}`] === undefined ||
                     state[disabledKey] !== this._keys[`${tag}_${disabledKey}`]) {
                     this.log(`${TYPE} RENDER 'disabled props'`, messageType.INFO);
