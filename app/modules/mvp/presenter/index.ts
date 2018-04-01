@@ -16,13 +16,16 @@ export class MVPPresenter extends Presenter{
 
     click(){
         this.log('PRESENTER CLICK INVOKE', messageType.INFO);
+        this.changeDisableState({isDisabled: true});
 
         this._model['sendToServer'](this._view.node.querySelector('input').value)
             .then((resp) => {
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
                 this.state = {data: resp};
+                this.changeDisableState({isDisabled: false});
                 this.renderLabel(this.state);
             }).catch((e) => {
+                this.changeDisableState({isDisabled: false});
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH ERROR', messageType.ERROR);
             });
     }
@@ -39,5 +42,13 @@ export class MVPPresenter extends Presenter{
 
             this.log('PRESENTER UPDATE VIEW', messageType.INFO);
         }
+    }
+
+    changeDisableState({isDisabled}){
+        // повторяюсь =(
+        this._view.node
+            .querySelector('.view-stub__input').disabled = isDisabled;
+        this._view.node
+            .querySelector('.view-stub__apply').disabled = isDisabled;
     }
 }
