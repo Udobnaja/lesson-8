@@ -25,9 +25,6 @@ export class Presenter extends HTMLLogger{
         return this._model.state;
     }
 
-    set model(value: Model) {
-        this._model = value;
-    }
     get view(): IView {
         return this._view;
     }
@@ -38,6 +35,9 @@ export class Presenter extends HTMLLogger{
 
     public init(){}
 
+    public provide(modelClass){
+        this._model = new modelClass();
+    }
 
     protected _update(data){
         this._model.state = data;

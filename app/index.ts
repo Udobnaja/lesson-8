@@ -36,7 +36,7 @@ const MVPInit = () => {
 
     const mvp = document.querySelector('.mvp');
 
-    const view = new MVPView(mvp, MVPPresenter, MVPModel);
+    const view = new MVPView(mvp).provide(MVPPresenter, MVPModel);
 
     const button = view.node.querySelector('.view-stub__apply');
     const input = view.node.querySelector('input');

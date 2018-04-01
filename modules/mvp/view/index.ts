@@ -17,12 +17,14 @@ export class View extends HTMLLogger implements IView{
         this._presenter = new Presenter(this); // decorator
     }
 
-    get presenter() {
-        return this._presenter;
+    public provide(presenterClass, modelClass){
+        this._presenter = new presenterClass(this);
+        this._presenter.provide(modelClass);
+        return this;
     }
 
-    set presenter(value) {
-        this._presenter = value;
+    get presenter() {
+        return this._presenter;
     }
 }
 

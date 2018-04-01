@@ -1,13 +1,6 @@
 import { Presenter } from '../../../../modules/mvp/presenter/index';
 import { messageType } from '../../../../modules/log/index';
 export class MVPPresenter extends Presenter{
-    // мне не нравится каждый раз вызвать супер
-    constructor(view, ModelClass){
-        super(view);
-        this.model = new ModelClass(); // временное решение
-    }
-
-    // Вообще не хорошо что я тут имею доступ к приватным и протектед пропертям
 
     init(){
         this.state = { data: 'Здесь появится ответ сервера', currentData: '' };
