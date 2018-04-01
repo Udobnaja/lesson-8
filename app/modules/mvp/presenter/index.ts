@@ -4,13 +4,29 @@ export class MVPPresenter extends Presenter{
     constructor(view, ModelClass){
         super(view);
         this._model = new ModelClass();
-        this._update({ data: 'Здесь появится ответ сервера', currentData: '' });
+    }
+
+    // Вообще не хорошо что я тут имею доступ к приватным и протектед пропертям
+
+    init(){
+        const data = { data: 'Здесь появится ответ сервера', currentData: '' };
+        this._update(data);
+        this.renderLabel(data);
     }
 
     click(){
         this.log('PRESENTER CLICK INVOKE', messageType.INFO);
-        const data = this._model['sendToServer'](this._view.node.querySelector('input').value);
-        this._update(data);
+
+        this._model['sendToServer'](this._view.node.querySelector('input').value)
+            .then((resp) => {
+                this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
+
+                const data = {data: resp};
+                this._update(data);
+                this.renderLabel(data);
+            }).catch((e) => {
+                this.log('PRESENTER SAYS: SERVER RESPOND WITH ERROR', messageType.ERROR);
+            });
     }
 
     keyup(){
@@ -19,15 +35,12 @@ export class MVPPresenter extends Presenter{
         this._update(data);
     }
 
-    protected _update(data){
+    renderLabel(data){
+        if (data.data){
+            this._view.node
+                .querySelector('.view-stub__label').innerText = data.data; // пока в тестовом режиме
 
-     super._update(data);
-
-        this.log('PRESENTER UPDATE DATA IN VIEW AND MODEL' , messageType.INFO);
-
-     if (data.data){
-         this._view.node
-             .querySelector('.view-stub__label').innerText = data.data; // пока в тестовом режиме
-     }
+            this.log('PRESENTER UPDATE VIEW', messageType.INFO);
+        }
     }
 }

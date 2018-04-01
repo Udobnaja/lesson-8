@@ -7,9 +7,8 @@ export class Model extends HTMLLogger{
         this.HTMLNode = document.querySelector('.mvp').querySelector('.log');
     }
 
-    update(data){
+    set state(data){
         this._state = Object.assign(this._state, data);
-        this.log(`MODEL UPDATE DATA ${Object.keys(data)}`, messageType.INFO);
     }
 }
 
