@@ -22,6 +22,11 @@ export class View extends HTMLLogger{
         this.log('VIEW CLICK ON BUTTON', messageType.INFO);
         this._presenter.click();
     }
+
+    keyup(){
+        this.log('VIEW KEY UP ON INPUT', messageType.INFO);
+        this._presenter.keyup();
+    }
 }
 
 // реализует отображение данных из модели, обращаясь к презентер за обновлениями

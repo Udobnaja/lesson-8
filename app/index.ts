@@ -35,10 +35,15 @@ const MVPInit = () => {
 
     const view = new View(mvp);
 
-    const button = mvp.querySelector('.view-stub__apply');
+    const button = view.node.querySelector('.view-stub__apply');
+    const input = view.node.querySelector('input');
 
     button.addEventListener('click', () => {
         view.click();
+    });
+
+    input.addEventListener('keyup', function () {
+       view.keyup();
     });
 };
 
