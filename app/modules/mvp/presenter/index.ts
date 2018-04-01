@@ -20,10 +20,8 @@ export class MVPPresenter extends Presenter{
         this._model['sendToServer'](this._view.node.querySelector('input').value)
             .then((resp) => {
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
-
-                const data = {data: resp};
-                this._update(data);
-                this.renderLabel(data);
+                this.state = {data: resp};
+                this.renderLabel(this.state);
             }).catch((e) => {
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH ERROR', messageType.ERROR);
             });
@@ -31,8 +29,7 @@ export class MVPPresenter extends Presenter{
 
     keyup(){
         this.log('PRESENTER KEYUP INVOKE', messageType.INFO);
-        const data = { currentData: this._view.node.querySelector('input').value };
-        this._update(data);
+        this.state = { currentData: this._view.node.querySelector('input').value };
     }
 
     renderLabel(data){
