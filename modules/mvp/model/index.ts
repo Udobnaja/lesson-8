@@ -12,13 +12,14 @@ export class Model extends HTMLLogger{
     }
 
     sendToServer(data){
-        this.log('From model send to server ' + data, messageType.INFO);
+        this.log('MODEL SEND DATA TO SERVER' + data, messageType.INFO);
 
         return {data: 'this.data From Server'};
     }
 
     update(data){
         this._state = Object.assign(this._state, data);
+        this.log('MODEL UPDATE DATA', messageType.INFO);
     }
 }
 
