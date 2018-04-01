@@ -6,7 +6,7 @@ export interface IView{
 }
 
 export class View extends HTMLLogger implements IView{
-    protected _presenter; // (IPresenter)
+    private _presenter; // (IPresenter)
     public node;
 
     constructor(node){
@@ -15,6 +15,14 @@ export class View extends HTMLLogger implements IView{
         this.HTMLNode = this.node.querySelector('.log');
         this.log('VIEW WAS CREATED', messageType.INFO);
         this._presenter = new Presenter(this); // decorator
+    }
+
+    get presenter() {
+        return this._presenter;
+    }
+
+    set presenter(value) {
+        this._presenter = value;
     }
 }
 

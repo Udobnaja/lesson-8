@@ -3,8 +3,8 @@ import { IView } from '../view/index';
 import {HTMLLogger, messageType} from '../../log/index';
 
 export class Presenter extends HTMLLogger{
-    protected _view: IView;
-    protected _model: Model;
+    private _view: IView;
+    private _model: Model;
 
     private _state;
 
@@ -25,9 +25,19 @@ export class Presenter extends HTMLLogger{
         return this._model.state;
     }
 
-    public init(){
-
+    set model(value: Model) {
+        this._model = value;
     }
+    get view(): IView {
+        return this._view;
+    }
+
+    get model(): Model {
+        return this._model;
+    }
+
+    public init(){}
+
 
     protected _update(data){
         this._model.state = data;

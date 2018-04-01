@@ -3,17 +3,17 @@ import { messageType } from '../../../../modules/log/index';
 export class MVPView extends View{
     constructor(node, presenterClass, modelClass){
         super(node);
-        this._presenter = new presenterClass(this, modelClass);
+        this.presenter = new presenterClass(this, modelClass); // временное решение - здесь сеттера не должно быть
     }
 
 
     click(){
         this.log('VIEW CLICK ON BUTTON', messageType.INFO);
-        this._presenter.click();
+        this.presenter.click();
     }
 
     keyup(){
         this.log('VIEW KEY UP ON INPUT', messageType.INFO);
-        this._presenter.keyup();
+        this.presenter.keyup();
     }
 }
