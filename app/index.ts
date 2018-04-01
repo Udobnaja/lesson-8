@@ -7,8 +7,8 @@ import './modules/flux/store/';
 import { Dispatcher } from '../modules/flux/';
 import { INPUT_TYPE, BUTTON_TYPE } from './modules/flux/actions/';
 
-import { MVPView } from './modules/mvp/view/index';
-import { MVPPresenter } from './modules/mvp/presenter/index';
+import { MVPView } from './modules/mvp/views/index';
+import { MVPPresenter } from './modules/mvp/presenters/index';
 import { MVPModel } from './modules/mvp/model/index';
 
 const FLUXInit = () => {
