@@ -21,7 +21,7 @@ export class MVPPresenter extends Presenter{
         this._model['sendToServer'](this._view.node.querySelector('input').value)
             .then((resp) => {
                 this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
-                this.state = {data: resp};
+                this.state = {data: (resp) ? resp : 'YOU SEND EMPTY DATA'};
                 this.changeDisableState({isDisabled: false});
                 this.renderLabel(this.state);
             }).catch((e) => {
