@@ -1,36 +1,36 @@
-export interface Observer {
-    update (arg:any);
+export interface IObserver {
+    update(arg: any);
 }
 
 export class Observable {
-    private observers : Observer [];
+    private _observers : IObserver [];
     private _value;
 
     constructor(value) {
         this._value = value;
-        this.observers = [];
+        this._observers = [];
     }
 
 
-    public next(value){
+    public next(value) {
         this._value = value;
-        this.notifyObservers(value);
+        this._notifyObservers(value);
     }
 
-    public getValue(){
+    public getValue() {
         return this._value;
     }
 
-    public registerObserver (observer : Observer) : void {
-        this.observers.push(observer);
+    public registerObserver (observer : IObserver) : void {
+        this._observers.push(observer);
     }
 
-    public removeObserver (observer : Observer) : void {
-        this.observers.splice(this.observers.indexOf(observer), 1);
+    public removeObserver (observer : IObserver) : void {
+        this._observers.splice(this._observers.indexOf(observer), 1);
     }
 
-    private notifyObservers (arg : any) : void {
-        this.observers.forEach((observer : Observer)=> {
+    private _notifyObservers (arg : any) : void {
+        this._observers.forEach((observer : IObserver) => {
             observer.update(arg);
         });
     }

@@ -1,6 +1,6 @@
 export enum messageType {
     INFO,
-    ERROR
+    ERROR,
 }
 
 export interface ILog {
@@ -8,8 +8,8 @@ export interface ILog {
 }
 
 export class Logger implements ILog {
-    log(message, type){
-        if (type === messageType.ERROR){
+    log(message, type) {
+        if (type === messageType.ERROR) {
             console.error(message);
         } else {
             console.log(message);
@@ -23,19 +23,19 @@ export class Logger implements ILog {
 export class HTMLLogger extends Logger {
     private _HTMLNode;
 
-    constructor(){
+    constructor() {
         super();
         this._HTMLNode = document.querySelector('.log');
     }
 
     set HTMLNode(value) {
-        //check value  not empty
+        // check value  not empty
         this._HTMLNode = value;
     }
 
-   log(message, type){
+   log(message, type) {
         super.log(message, type);
-        if (this._HTMLNode){
+        if (this._HTMLNode) {
             this._HTMLNode.innerHTML += `${message} <br>`;
         }
     }

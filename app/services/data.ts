@@ -4,7 +4,7 @@ const sendToServer = (data) => {
     // Выполняется какая то асинхронная операция
 
     return new Promise((resolve, reject) => {
-        let id = setTimeout(() => {
+        const id = setTimeout(() => {
             resolve(data);
             clearTimeout(id);
         }, TIMEOUT);
@@ -12,4 +12,4 @@ const sendToServer = (data) => {
     });
 };
 
-export { sendToServer }
+export { sendToServer };
