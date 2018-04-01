@@ -1,6 +1,7 @@
 import './styles.scss';
 
 import './modules/flux/views/log';
+import './modules/flux/views/form';
 import './modules/flux/store/';
 
 import { Dispatcher } from '../modules/flux/';

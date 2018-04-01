@@ -10,6 +10,7 @@ const state = {
     logList: [],
     currentData: '',
     data: 'Здесь появится ответ сервера',
+    isSending: false
 };
 
 export const store = Store.createStore({
@@ -18,21 +19,22 @@ export const store = Store.createStore({
     callbacks: { // mutations
         [BUTTON_TYPE.CLICK]: () => {
             dispatcher.dispatch({ type: DATA_TYPE.SEND_DATA });
-            // store.changeEvent({}); // может не стоит передовать стору пустые значения,
+             // может не стоит передовать стору пустые значения,
         },
         [INPUT_TYPE.KEYUP]: (payload) => {
             store.changeEvent({ currentData: payload }); //  мутирем стор только через change Event
         },
         [DATA_TYPE.SEND_DATA]: () => {
+            store.changeEvent({isSending: true});
             sendToServer(store.state.currentData).then((data) => {
                 dispatcher.dispatch({
                     type: DATA_TYPE.SEND_SUCCESS,
                     payload: (data) ? data : 'YOU SEND EMPTY DATA',
                 });
-                // store.changeEvent({});
+                store.changeEvent({isSending: false});
             }).catch((e) => {
                 dispatcher.dispatch({ type: DATA_TYPE.SEND_ERROR });
-                // store.changeEvent({});
+                store.changeEvent({isSending: false});
             });
 
         },
