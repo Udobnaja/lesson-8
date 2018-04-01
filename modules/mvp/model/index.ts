@@ -1,16 +1,10 @@
-import {HTMLLogger, messageType} from "../../log/index";
+import { HTMLLogger, messageType } from '../../log/index';
 export class Model extends HTMLLogger{
     private _state = {};
 
     constructor(){
         super();
         this.HTMLNode = document.querySelector('.mvp').querySelector('.log');
-    }
-
-    sendToServer(data){
-        this.log('MODEL SEND DATA TO SERVER' + data, messageType.INFO);
-
-        return {data: data};
     }
 
     update(data){

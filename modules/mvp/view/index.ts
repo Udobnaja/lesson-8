@@ -1,13 +1,12 @@
-import {Presenter} from "../presenter/index";
-import {HTMLLogger, messageType} from "../../log/index";
+import { HTMLLogger, messageType } from '../../log/index';
+import { Presenter } from '../presenter/index';
 
 export interface IView{
-    node;
-    click():void
+   node;
 }
 
-export class View extends HTMLLogger{
-    private _presenter; // (IPresenter)
+export class View extends HTMLLogger implements IView{
+    protected _presenter; // (IPresenter)
     public node;
 
     constructor(node){
@@ -16,16 +15,6 @@ export class View extends HTMLLogger{
         this.HTMLNode = this.node.querySelector('.log');
         this.log('VIEW WAS CREATED', messageType.INFO);
         this._presenter = new Presenter(this); // decorator
-    }
-
-    click(){
-        this.log('VIEW CLICK ON BUTTON', messageType.INFO);
-        this._presenter.click();
-    }
-
-    keyup(){
-        this.log('VIEW KEY UP ON INPUT', messageType.INFO);
-        this._presenter.keyup();
     }
 }
 

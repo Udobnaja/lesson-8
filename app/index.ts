@@ -6,7 +6,9 @@ import './modules/flux/store/';
 import { Dispatcher } from '../modules/flux/';
 import { INPUT_TYPE, BUTTON_TYPE } from './modules/flux/actions/';
 
-import {View} from "../modules/mvp/view/index";
+import { MVPView } from './modules/mvp/view/index';
+import { MVPPresenter } from './modules/mvp/presenter/index';
+import { MVPModel } from './modules/mvp/model/index';
 
 const FLUXInit = () => {
 
@@ -33,7 +35,7 @@ const MVPInit = () => {
 
     const mvp = document.querySelector('.mvp');
 
-    const view = new View(mvp);
+    const view = new MVPView(mvp, MVPPresenter, MVPModel);
 
     const button = view.node.querySelector('.view-stub__apply');
     const input = view.node.querySelector('input');
@@ -42,7 +44,7 @@ const MVPInit = () => {
         view.click();
     });
 
-    input.addEventListener('keyup', function () {
+    input.addEventListener('keyup',  () => {
        view.keyup();
     });
 };
