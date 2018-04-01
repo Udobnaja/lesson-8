@@ -11,7 +11,8 @@
       {"type": "method", "modifiers": "private", "prefix": "_"},
       {"type": "interface", "prefix": "I"}
     ],
-    "whitespace": [true, "check-type", "check-typecast"]
+    "whitespace": [true, "check-type", "check-typecast"],
+    "max-line-length": false
 
   }
 
