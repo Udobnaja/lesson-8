@@ -1,10 +1,10 @@
 import './styles.scss';
 
-import './views/log';
-import './store/';
+import './modules/flux/views/log';
+import './modules/flux/store/';
 
 import { Dispatcher } from '../modules/flux/';
-import { INPUT_TYPE, BUTTON_TYPE } from './actions/';
+import { INPUT_TYPE, BUTTON_TYPE } from './modules/flux/actions/';
 
 import {View} from "../modules/mvp/view/index";
 

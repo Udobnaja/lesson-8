@@ -1,7 +1,9 @@
-import { Store } from '../../modules/flux/store/index';
-import { Dispatcher } from '../../modules/flux/dispatcher/index';
+import { Store } from '../../../../modules/flux/store/index';
+import {Dispatcher} from "../../../../modules/flux/dispatcher/index";
+
 import { INPUT_TYPE, DATA_TYPE, BUTTON_TYPE } from '../actions/';
 import { sendToServer } from '../services/data';
+
 const dispatcher = new Dispatcher();
 const state = {
     log: '',
