@@ -1,7 +1,10 @@
 .view-stub{
+  $input-size: 400px;
+  $margin: 10px;
+  $button-width: $container-size - $input-size - $margin;
   &__input {
     @extend %small-padding;
-    width: 300px;
+    width: $input-size;
     border-radius: $border-radius;
     border: 2px solid #E8E8E8;
 
@@ -17,12 +20,13 @@
     font-size: 13px;
     box-shadow: none;
     border-radius: $border-radius;
-    margin-left: 10px;
+    margin-left: $margin;
     border: 0;
+    width: $button-width;
   }
 
   &__label {
-    width: 483px;
+    @extend %container-width;
     background-color: #ddd;
     color: black;
     @extend %big-padding;
