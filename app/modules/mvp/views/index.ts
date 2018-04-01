@@ -3,13 +3,13 @@ import { messageType } from '../../../../modules/log/index';
 export class MVPView extends View{
 
     click(){
-        this.log('VIEW CLICK ON BUTTON', messageType.INFO);
+        this.log('VIEW ИНИЦИАЛИЗИРОВАЛО CLICK ПО BUTTON', messageType.INFO);
         console.log(this.presenter);
         this.presenter.click();
     }
 
     keyup(){
-        this.log('VIEW KEY UP ON INPUT', messageType.INFO);
+        this.log('VIEW ИНИЦИАЛИЗИРОВАЛО СОБЫТИЕ KEY_UP ПО INPUT', messageType.INFO);
         this.presenter.keyup();
     }
 }

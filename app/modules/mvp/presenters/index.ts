@@ -8,23 +8,23 @@ export class MVPPresenter extends Presenter{
     }
 
     click(){
-        this.log('PRESENTER CLICK INVOKE', messageType.INFO);
+        this.log('PRESENTER: СОБЫТИЕ CLICK БЫЛО СОВЕРШЕНО', messageType.INFO);
         this.changeDisableState({ isDisabled: true });
 
         this.model['sendToServer'](this.view.node.querySelector('input').value)
             .then((resp) => {
-                this.log('PRESENTER SAYS: SERVER RESPOND WITH SUCCESS', messageType.INFO);
+                this.log('PRESENTER: СЕРВЕР ОТВЕТИЛ СО СТАТУСОМ 200', messageType.INFO);
                 this.state = { data: (resp) ? resp : 'YOU SEND EMPTY DATA' };
                 this.changeDisableState({ isDisabled: false });
                 this.renderLabel(this.state);
             }).catch((e) => {
                 this.changeDisableState({ isDisabled: false });
-                this.log('PRESENTER SAYS: SERVER RESPOND WITH ERROR', messageType.ERROR);
+                this.log('PRESENTER: ВО ВРЕМЯ ОТПРАВКИ ДАННЫХ НА СЕРВЕР ПРОИЗОШЛА ОШИБКА', messageType.ERROR);
             });
     }
 
     keyup(){
-        this.log('PRESENTER KEYUP INVOKE', messageType.INFO);
+        this.log('PRESENTER: СОБЫТИЕ KEY_UP БЫЛО СОВЕРШЕНО', messageType.INFO);
         this.state = { currentData: this.view.node.querySelector('input').value };
     }
 
@@ -33,7 +33,7 @@ export class MVPPresenter extends Presenter{
             this.view.node
                 .querySelector('.view-stub__label').innerText = data.data; // пока в тестовом режиме
 
-            this.log('PRESENTER UPDATE VIEW', messageType.INFO);
+            this.log('PRESENTER: ОБНОВИЛ VIEW', messageType.INFO);
         }
     }
 

@@ -41,7 +41,7 @@ export class Presenter extends HTMLLogger{
 
     protected _update(data){
         this._model.state = data;
-        this.log('PRESENTER UPDATE DATA MODEL' , messageType.INFO);
+        this.log(`PRESENTER: ОБНОВИЛ ДАННЫЕ MODEL ${Object.keys(data)}` , messageType.INFO);
     }
 
 }

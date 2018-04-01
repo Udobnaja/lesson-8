@@ -28,7 +28,7 @@ export class Store extends HTMLLogger {
         state,
         callbacks,
     }) {
-        Store._instance.log(`${TYPE} WAS CREATED`, messageType.INFO);
+        Store._instance.log(`${TYPE}: БЫЛ СОЗДАН`, messageType.INFO);
         Store.dispatcher = dispatcher;
 
         for (const key in callbacks) {
@@ -47,8 +47,8 @@ export class Store extends HTMLLogger {
     changeEvent(payload) {
         const keys = Object.keys(payload);
         const log = (keys.length) ?
-            `${TYPE} CHANGE ${keys} KEYS` :
-            `${TYPE} CHANGE EVENT FIRED WITH EMPTY PAYLOAD`;
+            `${TYPE}: ИЗМЕНИЛ ЗНАЧЕНИЯ ' ${keys} ' КЛЮЧА/КЛЮЧЕЙ` :
+            `${TYPE}: ПРОИЗОШЛО СОБЫТИЕ CHANGE EVENT, НО ЗФНДЩФВ БЫЛ ПУСТОЙ`;
         this.log(log, messageType.INFO);
         if (keys.length) { // для того чтобы рендер выполнялся только при наличии payload
             Store._state.next(Object.assign(this.state, payload));

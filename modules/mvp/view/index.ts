@@ -13,7 +13,7 @@ export class View extends HTMLLogger implements IView{
         super();
         this.node = node;
         this.HTMLNode = this.node.querySelector('.log');
-        this.log('VIEW WAS CREATED', messageType.INFO);
+        this.log('VIEW: СОЗДАНО', messageType.INFO);
         this._presenter = new Presenter(this); // decorator
     }
 

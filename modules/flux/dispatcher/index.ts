@@ -24,18 +24,18 @@ export class Dispatcher extends HTMLLogger {
 
         this._callbacks.get(type).push(callback);
 
-        this.log(`${TYPE} REGISTER ${type} CALLBACK`, messageType.INFO);
+        this.log(`${TYPE}: ЗАРЕГИСТРИРОВАЛ ${type} CALLBACK`, messageType.INFO);
     }
 
     dispatch(action: IAction<any>) {
         
         if (this._callbacks.has(action.type)) {
             this._callbacks.get(action.type).forEach((callback) =>  {
-                this.log(`${TYPE} DISPATCH ${action.type} CALLBACK`, messageType.INFO);
+                this.log(`${TYPE}: ПРОБРОСИЛ ${action.type} CALLBACK`, messageType.INFO);
                 callback(action.payload);
             });
         } else {
-            this.log(`${TYPE} DISPATCH ERRORS ON TYPE ${action.type} CALLBACK`, messageType.ERROR);
+            this.log(`${TYPE}: CALLBACK С ТИПОМ ${action.type} НЕ ЗАРЕГИСТРИРОВАН В СИСТЕМЕ`, messageType.ERROR);
         }
     }
 
@@ -45,7 +45,7 @@ export class Dispatcher extends HTMLLogger {
             if (index < callbacks.length && index >= 0) {
                 this._callbacks.get(type).splice(index, 1);
                 this.log(
-                    `${TYPE} UNREGISTER ${type} CALLBACK with index ${index}`,
+                    `${TYPE}: ОТВЯЗАЛИ CALLBACK С ТИПОМ ${type} и ИНДЕКСОМ ${index}`,
                     messageType.INFO,
                 );
             }

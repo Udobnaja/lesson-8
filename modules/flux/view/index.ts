@@ -22,7 +22,7 @@ export class View extends HTMLLogger implements IObserver {
 
            if (key !== undefined) {
                if (this._keys[key] === undefined || state[key] !== this._keys[key]) {
-                   this.log(`${TYPE} RENDER 'inner text'`, messageType.INFO);
+                   this.log(`${TYPE}: РЕНДЕР ' innerText '`, messageType.INFO);
                    node.innerText = state[key];
                    this._keys[key] = state[key];
                }
@@ -34,7 +34,7 @@ export class View extends HTMLLogger implements IObserver {
             if (disabledKey !== undefined) {
                 if (this._keys[`${tag}_${disabledKey}`] === undefined ||
                     state[disabledKey] !== this._keys[`${tag}_${disabledKey}`]) {
-                    this.log(`${TYPE} RENDER 'disabled props'`, messageType.INFO);
+                    this.log(`${TYPE}: РЕНДЕР ' disabled props '`, messageType.INFO);
                     node.disabled = state[disabledKey];
                     this._keys[`${tag}_${disabledKey}`] = state[disabledKey];
                 }
