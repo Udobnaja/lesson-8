@@ -7,6 +7,7 @@
     "dev": "webpack --mode development",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "gh-pages -d dist",
     "lint": "npm run lint:ts && npm run lint:sass",
